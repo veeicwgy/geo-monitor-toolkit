@@ -6,7 +6,7 @@ compatibility: "skills.sh, OpenClaw, ClawHub, Claude-style skill ecosystems"
 metadata:
   author: Manus AI
   version: "0.1.0"
-  homepage: https://github.com/<your-org>/geo-monitor-toolkit
+  homepage: https://github.com/veeicwgy/geo-monitor-toolkit
   tags:
     - geo
     - ai-search

@@ -19,16 +19,16 @@
 如果你希望整库安装并直接复用工作流，可以使用：
 
 ```bash
-npx skills add <your-org>/geo-monitor-toolkit
+npx skills add veeicwgy/geo-monitor-toolkit
 ```
 
 如果你只希望安装某一个技能，可以使用：
 
 ```bash
-npx skills add <your-org>/geo-monitor-toolkit -s geo-monitor
-npx skills add <your-org>/geo-monitor-toolkit -s geo-content-check
-npx skills add <your-org>/geo-monitor-toolkit -s geo-fix-negative
-npx skills add <your-org>/geo-monitor-toolkit -s geo-keyword-matrix
+npx skills add veeicwgy/geo-monitor-toolkit -s geo-monitor
+npx skills add veeicwgy/geo-monitor-toolkit -s geo-content-check
+npx skills add veeicwgy/geo-monitor-toolkit -s geo-fix-negative
+npx skills add veeicwgy/geo-monitor-toolkit -s geo-keyword-matrix
 ```
 
 如果你更偏向阅读方法论文档而不是直接调用技能，则可以直接浏览 `playbooks/` 与 `examples/` 目录。
