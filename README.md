@@ -1,6 +1,6 @@
 # GEO Monitor Toolkit
 
-![CI](https://github.com/veeicwgy/geo-monitor-toolkit/actions/workflows/ci.yml/badge.svg)
+![PyCI](https://img.shields.io/badge/PyCI-ready-2563eb)
 ![Release](https://img.shields.io/github/v/release/veeicwgy/geo-monitor-toolkit)
 ![Python](https://img.shields.io/badge/python-3.11-blue)
 
