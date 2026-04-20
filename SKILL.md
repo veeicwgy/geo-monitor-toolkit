@@ -37,6 +37,8 @@ When the user is new to the repository, route them in this order.
 | Wants zero-cost first run | run `bash quickstart.sh` |
 | Wants a short explanation first | open `docs/for-beginners.md` |
 | Wants deeper onboarding | open `docs/getting-started.md` |
+| Wants the English repository overview | open `README.md` |
+| Wants the Chinese repository overview | open `README.zh-CN.md` |
 
 ## GEO Strategy
 

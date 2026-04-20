@@ -2,22 +2,29 @@
 
 # GEO Monitor Toolkit
 
-**GEO Monitor Toolkit** 是一个面向 **developer tools、API、SDK 与 open-source 项目** 的 **GEO Monitoring OS**。它不是通用内容生成器，而是一套把 **Query Pool、answer monitoring、四指标打分、repair loop 与 T+7/T+14 回归验证** 串起来的可复现工作流。
+> Monitor how ChatGPT, Claude, Gemini, and other LLMs describe your developer tool, API, SDK, or open-source project.
+
+[![CI](https://github.com/veeicwgy/geo-monitor-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/veeicwgy/geo-monitor-toolkit/actions/workflows/ci.yml)
+
+**GEO Monitor Toolkit** is a **GEO Monitoring OS for developer tools, APIs, SDKs, and open-source projects**.
+It is not a generic content generator. It is a reproducible workflow that connects **Query Pool design, answer monitoring, four-metric scoring, repair loops, and T+7/T+14 regression checks**.
+
+For 中文说明, see [`README.zh-CN.md`](README.zh-CN.md).
 
 ## Why this repository exists
 
-如果你的团队已经开始关注“LLM 会不会提到我、会不会说错我、修完后会不会变好”，这个仓库的目标就是把这条链路变成可执行、可复盘、可对比的流程。
+If your team is already asking whether LLMs mention your product, describe it correctly, or improve after documentation fixes, this repository turns that concern into an executable and reviewable workflow.
 
-| 你要解决的问题 | 这个仓库给你的东西 |
+| What you need to answer | What this repository gives you |
 |---|---|
-| 想知道模型有没有提到你的产品 | Query Pool + raw responses |
-| 想判断提到得对不对、正不正向 | 四指标打分框架 |
-| 想知道应该去哪里修复信息源 | placement / repair 视角 |
-| 想验证修复动作是否真的有效 | T+7 / T+14 回归验证 |
+| Do models mention our product at all? | Query Pool + raw responses |
+| When they mention us, is it accurate and positive? | Four-metric scoring framework |
+| Where should we repair the source of truth? | Placement and repair lens |
+| Did our fixes actually improve model answers? | T+7 / T+14 regression checks |
 
 ## 30-second path
 
-第一次使用，按这个顺序即可。
+For a first run, follow this exact order.
 
 ```bash
 git clone https://github.com/veeicwgy/geo-monitor-toolkit.git
@@ -29,61 +36,61 @@ bash quickstart.sh
 
 ## What you will get first
 
-第一次跑完后，优先看下面 4 个输出。
+After the first run, start with these four outputs.
 
 | Output | Path | Why it matters |
 |---|---|---|
-| Raw responses | `data/runs/quickstart-run/raw_responses.jsonl` | 查看多模型原始回答证据 |
-| Score draft | `data/runs/quickstart-run/score_draft.jsonl` | 后续人工复核与补标入口 |
-| Weekly report snapshot | `data/runs/sample-run/weekly_report.md` | 查看团队可消费的周报样式 |
-| Leaderboard snapshot | `assets/leaderboard-sample.png` | 快速理解默认多模型对比 |
+| Raw responses | `data/runs/quickstart-run/raw_responses.jsonl` | Review multi-model answer evidence |
+| Score draft | `data/runs/quickstart-run/score_draft.jsonl` | Start manual review and annotation |
+| Weekly report snapshot | `data/runs/sample-run/weekly_report.md` | See the report format a team can consume |
+| Leaderboard snapshot | `assets/leaderboard-sample.png` | Understand the default multi-model comparison |
 
-> `quickstart.sh` 会生成一份新的 `quickstart-run` 原始证据，同时重放仓库内置的样例摘要来生成周报与图表快照。因此首轮体验既能看到“新 run 长什么样”，也能直接看到“成熟输出长什么样”。
+> `quickstart.sh` creates a fresh `quickstart-run` with raw evidence, then replays built-in sample summaries to generate report and chart snapshots. Your first run therefore shows both what a new run looks like and what a mature output package looks like.
 
 ## Beginner-first docs
 
-如果你是第一次接触 GEO 监控，请先读这两个入口。
+If you are new to GEO monitoring, start with these two entry points.
 
-| 文档 | 用途 |
+| Document | Purpose |
 |---|---|
-| `docs/for-beginners.md` | 5 分钟上手版，先跑通、先看结果 |
-| `docs/getting-started.md` | 长版入门，解释输出、模式和团队使用方式 |
+| `docs/for-beginners.md` | 5-minute path: run it once and read the outputs |
+| `docs/getting-started.md` | Long-form onboarding with modes, outputs, and team usage |
 
 ## Which mode should you choose
 
-| 你的状态 | 推荐模式 | 入口 |
+| Your situation | Recommended mode | Entry point |
 |---|---|---|
-| 没有 API key，只想先看整个流程 | Quickstart replay | `bash quickstart.sh` |
-| 已经从外部聊天产品拿到回答，想导入评估 | Manual paste mode | `python -m geo_monitor run --manual-responses ...` |
-| 想做真实、持续、多模型 GEO 监控 | API collection mode | `python -m geo_monitor run --query-pool ... --model-config ...` |
+| No API key yet and you only want to see the full workflow | Quickstart replay | `bash quickstart.sh` |
+| You already copied answers from external chat products and want to score them | Manual paste mode | `python -m geo_monitor run --manual-responses ...` |
+| You want real, repeatable, multi-model GEO monitoring | API collection mode | `python -m geo_monitor run --query-pool ... --model-config ...` |
 
 ## Core commands
 
 | Command | What it does |
 |---|---|
-| `bash install.sh` | 创建 `.venv` 并安装依赖 |
-| `make doctor` | 检查 Python、依赖、样例文件与输出目录是否可用 |
-| `bash quickstart.sh` | 运行零 API 成本的新手演示 |
-| `make sample-report` | 重建样例报告与图表 |
-| `python -m geo_monitor run ...` | 运行自定义 Query Pool 监控 |
+| `bash install.sh` | Creates `.venv` and installs dependencies |
+| `make doctor` | Checks Python, dependencies, sample files, and output directories |
+| `bash quickstart.sh` | Runs the zero-API-cost beginner demo |
+| `make sample-report` | Rebuilds sample reports and chart assets |
+| `python -m geo_monitor run ...` | Runs custom Query Pool monitoring |
 
 ## Default sample inputs
 
 | File | Purpose |
 |---|---|
-| `data/query-pools/mineru-example.json` | 默认 Query Pool 示例 |
-| `data/models.sample.json` | 最小单模型配置 |
-| `data/models.multi.sample.json` | 默认多模型配置 |
-| `data/manual.sample.json` | 最小手工回答样例 |
-| `data/manual.multi.sample.json` | 多模型手工回答样例 |
+| `data/query-pools/mineru-example.json` | Default Query Pool sample |
+| `data/models.sample.json` | Minimal single-model config |
+| `data/models.multi.sample.json` | Default multi-model config |
+| `data/manual.sample.json` | Minimal manual-response sample |
+| `data/manual.multi.sample.json` | Multi-model manual-response sample |
 
 ## Repository positioning
 
-请把它理解为：
+Think of this repository as:
 
 > **GEO Monitoring OS for Developer Tools**
 >
-> 它关注的是 **monitoring、scoring、repair 与 regression**，而不是泛化营销文案生成。
+> It focuses on **monitoring, scoring, repair, and regression**, not on generic marketing copy generation.
 
 ## Read next
 
@@ -91,4 +98,5 @@ bash quickstart.sh
 |---|---|
 | 5-minute path | `docs/for-beginners.md` |
 | Long-form onboarding | `docs/getting-started.md` |
+| Chinese README | `README.zh-CN.md` |
 | Skill package | `SKILL.md` or `skills/geo-monitor-toolkit/SKILL.md` |
