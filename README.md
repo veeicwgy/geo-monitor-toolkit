@@ -1,184 +1,94 @@
+![GEO Monitor Toolkit](assets/logo.png)
+
 # GEO Monitor Toolkit
 
-![GEO Monitor Toolkit Logo](assets/logo.png)
+**GEO Monitor Toolkit** 是一个面向 **developer tools、API、SDK 与 open-source 项目** 的 **GEO Monitoring OS**。它不是通用内容生成器，而是一套把 **Query Pool、answer monitoring、四指标打分、repair loop 与 T+7/T+14 回归验证** 串起来的可复现工作流。
 
-[![CI](https://github.com/veeicwgy/geo-monitor-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/veeicwgy/geo-monitor-toolkit/actions/workflows/ci.yml)
-![Release](https://img.shields.io/github/v/release/veeicwgy/geo-monitor-toolkit)
-![Python](https://img.shields.io/badge/python-3.11-blue)
+## Why this repository exists
 
-> **GEO Monitoring OS for Developer Tools**
+如果你的团队已经开始关注“LLM 会不会提到我、会不会说错我、修完后会不会变好”，这个仓库的目标就是把这条链路变成可执行、可复盘、可对比的流程。
 
-**GEO Monitor Toolkit** 是一套面向 **开发者工具、API、SDK 与开源项目** 的 GEO 监控与修复中台。它不是泛化的内容生成器，而是把 **Query Pool、LLM answer monitoring、四指标打分、repair loop、T+7/T+14 回归验证** 组织成一条可复现、可协作、可交付的工作流。
-
-## Why This Repository Exists
-
-与偏“内容生产”或“提示词集合”的仓库不同，这个项目优先解决的是 **模型是否提到你、提到得是否正确、能力是否被准确理解、生态关系是否被误判，以及修复动作是否真的改善结果**。
-
-| Differentiator | What you get |
+| 你要解决的问题 | 这个仓库给你的东西 |
 |---|---|
-| Reproducible evaluation | `schema`、`rubric`、`run artifacts`、`summary`、`weekly report` |
-| Repair loop | 不止给建议，还能记录 `repair action → T+7/T+14 delta` |
-| Product focus | 聚焦 developer tools / API / SDK / open-source，而不是泛品牌营销 |
-| Team workflow | 支持产品、DevRel、内容、增长与工程协同复盘 |
+| 想知道模型有没有提到你的产品 | Query Pool + raw responses |
+| 想判断提到得对不对、正不正向 | 四指标打分框架 |
+| 想知道应该去哪里修复信息源 | placement / repair 视角 |
+| 想验证修复动作是否真的有效 | T+7 / T+14 回归验证 |
 
-## Start in 30 Seconds
+## 30-second path
 
-如果你第一次访问这个仓库，只跑下面四行：
+第一次使用，按这个顺序即可。
 
 ```bash
 git clone https://github.com/veeicwgy/geo-monitor-toolkit.git
 cd geo-monitor-toolkit
 bash install.sh
+make doctor
 bash quickstart.sh
 ```
 
-这条路径会同时完成 **依赖安装、数据校验、多模型手工演示、默认报告重放与图表生成**。
+## What you will get first
 
-| Step | Command | Result |
+第一次跑完后，优先看下面 4 个输出。
+
+| Output | Path | Why it matters |
 |---|---|---|
-| Install | `bash install.sh` | 创建本地环境并安装依赖 |
-| Quickstart | `bash quickstart.sh` | 生成多模型 demo run 与默认报告快照 |
-| Make alternative | `make quickstart` | 适合习惯 Make 的团队 |
+| Raw responses | `data/runs/quickstart-run/raw_responses.jsonl` | 查看多模型原始回答证据 |
+| Score draft | `data/runs/quickstart-run/score_draft.jsonl` | 后续人工复核与补标入口 |
+| Weekly report snapshot | `data/runs/sample-run/weekly_report.md` | 查看团队可消费的周报样式 |
+| Leaderboard snapshot | `assets/leaderboard-sample.png` | 快速理解默认多模型对比 |
 
-## What You See on First Run
+> `quickstart.sh` 会生成一份新的 `quickstart-run` 原始证据，同时重放仓库内置的样例摘要来生成周报与图表快照。因此首轮体验既能看到“新 run 长什么样”，也能直接看到“成熟输出长什么样”。
 
-首次体验结束后，你应该立刻看到以下产物。
+## Beginner-first docs
 
-| Output | Path |
+如果你是第一次接触 GEO 监控，请先读这两个入口。
+
+| 文档 | 用途 |
 |---|---|
-| Raw responses | `data/runs/quickstart-run/raw_responses.jsonl` |
-| Score draft | `data/runs/quickstart-run/score_draft.jsonl` |
-| Run manifest | `data/runs/quickstart-run/run_manifest.json` |
-| Weekly report | `data/runs/sample-run/weekly_report.md` |
-| Leaderboard snapshot | `assets/leaderboard-sample.png` |
-| Repair trend snapshot | `assets/repair-trend-sample.png` |
+| `docs/for-beginners.md` | 5 分钟上手版，先跑通、先看结果 |
+| `docs/getting-started.md` | 长版入门，解释输出、模式和团队使用方式 |
 
-默认首屏图现在直接展示 **多模型 leaderboard 快照**，避免首次访客只能看到单模型示意图。
+## Which mode should you choose
 
-![Model Leaderboard Snapshot](assets/leaderboard-sample.png)
-
-![Repair Trend Snapshot](assets/repair-trend-sample.png)
-
-## Who Should Use This
-
-| Team / role | Use this when |
-|---|---|
-| Developer tools PMM / DevRel | 你要知道模型如何介绍安装方式、核心能力与生态集成 |
-| Open-source maintainers | 你要修复错误答案、过时答案与竞品插入 |
-| API / SDK teams | 你要建立稳定 Query Pool 并做周期性回跑 |
-| Product + growth teams | 你需要一套能证明修复动作是否有效的 GEO 工作流 |
-
-如果你现在需要的是 **通用 SEO 文案生成器** 或 **一次性的营销内容写手**，这个仓库并不是最佳入口。
-
-## What You Can Prove in One Week
-
-| Time window | What you can show |
-|---|---|
-| Day 1 | 建立 Query Pool 与模型范围 |
-| Day 2-3 | 拿到 baseline 回答、四指标评分与周报 |
-| Day 4-5 | 形成内容铺设与问题修复 backlog |
-| Day 7 / Day 14 | 用相同 query 回跑并展示指标变化 |
-
-## Runtime Modes
-
-| Mode | Inputs | Outputs | Best for |
-|---|---|---|---|
-| Quickstart replay | `data/models.multi.sample.json` + `data/manual.multi.sample.json` | `quickstart-run` + 默认报告快照 | 首次体验、零 API 成本演示 |
-| Manual paste mode | Query Pool + manual response JSON | `raw_responses.jsonl` + `score_draft.jsonl` | 把外部聊天结果导入仓库 |
-| API collection mode | Query Pool + model config + API key | `raw_responses.jsonl` + `score_draft.jsonl` + 后续汇总 | 做真实批量 GEO 监控 |
-| Multi-provider API collection | Query Pool + OpenAI-compatible gateway + enabled models | `raw_responses.jsonl` + 后续 summary/report | 跨 Claude / Gemini / DeepSeek / Qwen / MiniMax / GLM 等模型采集 |
-
-## Multi-Provider API Collection
-
-`run_chat_completions.py` 使用通用的 Chat Completions 接口，兼容 OpenAI-compatible 网关，可以同时采集多个 AI 厂商的回答。
-
-```bash
-export OPENAI_API_KEY=<your-key>
-export OPENAI_BASE_URL=<your-gateway-url>
-
-python scripts/run_chat_completions.py \
-    --query-pool data/query-pools/mineru-example.json \
-    --model-config data/models.sample.json \
-    --out-dir data/runs/multi-provider-run
-
-python -m geo_monitor report \
-    --input data/runs/multi-provider-run/raw_responses.jsonl \
-    --output-dir data/runs/multi-provider-run
-```
-
-在 `data/models.sample.json` 中将需要的模型 `enabled` 设为 `true`，即可按同一流程采集多 provider 回答。
-
-| 模型 | api_model 字段 | 说明 |
+| 你的状态 | 推荐模式 | 入口 |
 |---|---|---|
-| GPT-4o | `gpt-4o` | OpenAI 原生 |
-| Claude Sonnet | `claude-sonnet-4-6` | 需通过兼容网关 |
-| Gemini 2.5 Flash | `gemini-2.5-flash` | 需通过兼容网关 |
-| DeepSeek V3 | `deepseek-v3-250324` | 需通过兼容网关 |
-| Qwen Max | `qwen-max` | 需通过兼容网关 |
-| MiniMax M2 | `minimax/minimax-m2` | 需通过兼容网关 |
-| GLM-5 | `glm-5` | 需通过兼容网关 |
+| 没有 API key，只想先看整个流程 | Quickstart replay | `bash quickstart.sh` |
+| 已经从外部聊天产品拿到回答，想导入评估 | Manual paste mode | `python -m geo_monitor run --manual-responses ...` |
+| 想做真实、持续、多模型 GEO 监控 | API collection mode | `python -m geo_monitor run --query-pool ... --model-config ...` |
 
-## Minimal Files You Can Start From
+## Core commands
+
+| Command | What it does |
+|---|---|
+| `bash install.sh` | 创建 `.venv` 并安装依赖 |
+| `make doctor` | 检查 Python、依赖、样例文件与输出目录是否可用 |
+| `bash quickstart.sh` | 运行零 API 成本的新手演示 |
+| `make sample-report` | 重建样例报告与图表 |
+| `python -m geo_monitor run ...` | 运行自定义 Query Pool 监控 |
+
+## Default sample inputs
 
 | File | Purpose |
 |---|---|
-| [`data/query-pools/mineru-example.json`](data/query-pools/mineru-example.json) | 默认开发者工具 Query Pool |
-| [`data/models.sample.json`](data/models.sample.json) | 最小单模型配置 |
-| [`data/models.multi.sample.json`](data/models.multi.sample.json) | 默认多模型演示配置 |
-| [`data/manual.sample.json`](data/manual.sample.json) | 最小手工回答样例 |
-| [`data/manual.multi.sample.json`](data/manual.multi.sample.json) | 多模型手工回答样例 |
-| [`docs/metric-definition.md`](docs/metric-definition.md) | 四指标口径说明 |
+| `data/query-pools/mineru-example.json` | 默认 Query Pool 示例 |
+| `data/models.sample.json` | 最小单模型配置 |
+| `data/models.multi.sample.json` | 默认多模型配置 |
+| `data/manual.sample.json` | 最小手工回答样例 |
+| `data/manual.multi.sample.json` | 多模型手工回答样例 |
 
-## Trust Signals
+## Repository positioning
 
-仓库的核心信任信号应该放在首屏前 1/3，因此这里直接公开：
+请把它理解为：
 
-| Signal | Location |
-|---|---|
-| Real CI workflow | [`.github/workflows/ci.yml`](.github/workflows/ci.yml) |
-| Leaderboard snapshot | [`assets/leaderboard-sample.png`](assets/leaderboard-sample.png) |
-| Repair delta snapshot | [`assets/repair-trend-sample.png`](assets/repair-trend-sample.png) |
-| Benchmark method | [`benchmark/README.md`](benchmark/README.md) |
-| Case example | [`examples/mineru-case-study.md`](examples/mineru-case-study.md) |
+> **GEO Monitoring OS for Developer Tools**
+>
+> 它关注的是 **monitoring、scoring、repair 与 regression**，而不是泛化营销文案生成。
 
-## Read the Full Docs
-
-README 保持为短版 landing。更详细的说明请直接进入长版文档。
+## Read next
 
 | Topic | Path |
 |---|---|
-| Full getting started guide | [`docs/getting-started.md`](docs/getting-started.md) |
-| Metric definition | [`docs/metric-definition.md`](docs/metric-definition.md) |
-| Benchmark method | [`benchmark/README.md`](benchmark/README.md) |
-| Reader guide | [`notebooks/README.md`](notebooks/README.md) |
-| Repair template | [`templates/repair-validation.md`](templates/repair-validation.md) |
-| Weekly report template | [`templates/weekly-report.md`](templates/weekly-report.md) |
-| Release notes | [`release-notes/v0.2.0.md`](release-notes/v0.2.0.md) |
-
-## Repository Map
-
-| Directory | What it contains |
-|---|---|
-| `data/` | Query pools, sample configs, run outputs, repair validations |
-| `schemas/` | Structured validation contracts |
-| `rubrics/` | Scoring rules and annotation protocol |
-| `scripts/` | Run, score, report, leaderboard, validation scripts |
-| `playbooks/` | GEO strategy, monitoring, datasource mapping, repair SOP |
-| `examples/` | Business or product case examples |
-
-## CLI
-
-如果你已经完成首次体验，可以直接使用统一 CLI：
-
-```bash
-python -m geo_monitor run --query-pool data/query-pools/mineru-example.json --model-config data/models.multi.sample.json --out-dir data/runs/demo-run --manual-responses data/manual.multi.sample.json
-python -m geo_monitor report --input data/runs/sample-run/annotations.jsonl --output-dir data/runs/sample-run
-python -m geo_monitor leaderboard
-python -m geo_monitor validate
-```
-
-## Positioning
-
-> **GEO Monitor Toolkit = GEO Monitoring OS for Developer Tools**
->
-> 它关注的是 **监控、打分、修复与回归验证**，不是泛化营销内容生成器。
+| 5-minute path | `docs/for-beginners.md` |
+| Long-form onboarding | `docs/getting-started.md` |
+| Skill package | `SKILL.md` or `skills/geo-monitor-toolkit/SKILL.md` |

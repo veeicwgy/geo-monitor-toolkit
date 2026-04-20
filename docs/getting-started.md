@@ -2,6 +2,10 @@
 
 **GEO Monitor Toolkit** 是一个面向 **开发者工具、API、SDK 与开源项目** 的 **GEO Monitoring OS**。它的重点不是通用营销文案生成，而是把 **Query Pool、LLM answer monitoring、四指标打分、repair loop、T+7/T+14 回归验证** 串成可复现的团队工作流。
 
+## Read This First
+
+如果你是第一次接触这个仓库，建议先看 `docs/for-beginners.md`。那份文档是 5 分钟路径；本文档是长版说明。
+
 ## What You Can Do in the First 30 Seconds
 
 如果你只想先看到“这个仓库跑完后到底会产出什么”，按下面顺序执行即可。
@@ -10,10 +14,11 @@
 git clone https://github.com/veeicwgy/geo-monitor-toolkit.git
 cd geo-monitor-toolkit
 bash install.sh
+make doctor
 bash quickstart.sh
 ```
 
-运行后，你会同时看到两类结果：一类是新的多模型手工演示 run，另一类是基于仓库内样例注释重放出来的报告与可视化产物。
+运行后，你会同时看到两类结果：一类是新的多模型手工演示 run，另一类是基于仓库内样例摘要重放出来的报告与可视化产物。
 
 | Output | Path | Why it matters |
 |---|---|---|
@@ -24,11 +29,14 @@ bash quickstart.sh
 | Leaderboard snapshot | `assets/leaderboard-sample.png` | 查看默认多模型对比快照 |
 | Repair trend snapshot | `assets/repair-trend-sample.png` | 查看修复动作后的时间序列改善 |
 
+> 这里的 `quickstart-run` 是当前命令新生成的原始证据；`weekly_report.md` 与两张图则是基于仓库样例摘要重放得到的展示快照，用于降低首次理解成本。
+
 ## Which Entry Should You Use
 
 | Entry | Command | Best for |
 |---|---|---|
 | Install | `bash install.sh` | 一键安装依赖并准备本地环境 |
+| Doctor | `make doctor` | 先检查环境、样例文件和目录是否完整 |
 | Quickstart | `bash quickstart.sh` | 首次体验、30 秒看懂产物、零 API 成本演示 |
 | Make target | `make quickstart` | 已熟悉 Make 工作流的团队 |
 | CLI | `python -m geo_monitor ...` | 接入自己的 Query Pool、模型配置与运行目录 |
@@ -37,7 +45,7 @@ bash quickstart.sh
 
 | Mode | Inputs | Outputs | Use when |
 |---|---|---|---|
-| Quickstart replay | `data/models.multi.sample.json` + `data/manual.multi.sample.json` | `quickstart-run` 产物 + 默认报告重放 | 想先看结果，不想先配 API |
+| Quickstart replay | `data/models.multi.sample.json` + `data/manual.multi.sample.json` | `quickstart-run` 产物 + 默认报告快照 | 想先看结果，不想先配 API |
 | Manual paste mode | Query Pool + manual response JSON | `raw_responses.jsonl` + `score_draft.jsonl` | 需要把外部聊天结果导入仓库打分 |
 | API collection mode | Query Pool + model config + API key | `raw_responses.jsonl` + `score_draft.jsonl` + 后续汇总 | 做真实批量监控 |
 
@@ -50,9 +58,6 @@ bash quickstart.sh
 | `data/models.multi.sample.json` | 默认多模型演示配置 |
 | `data/manual.sample.json` | 最小手工回答样例 |
 | `data/manual.multi.sample.json` | 多模型手工回答样例 |
-| `schemas/query-pool.schema.json` | Query Pool 结构校验 |
-| `schemas/run-results.schema.json` | 运行结果结构校验 |
-| `schemas/repair-validation.schema.json` | 修复回归记录结构校验 |
 
 ## Recommended Team Workflow
 
@@ -78,17 +83,6 @@ bash quickstart.sh
 | Product marketing + DevRel | 需要一套可以协同、复盘、回归验证的 GEO 中台 |
 
 如果你需要的是通用内容生成器、SEO 博文写手或品牌口号生成器，这个仓库并不是最优入口。
-
-## Read Next
-
-| Topic | Path |
-|---|---|
-| Metric definition | `docs/metric-definition.md` |
-| Benchmark method | `benchmark/README.md` |
-| Notebook / reader guide | `notebooks/README.md` |
-| Repair template | `templates/repair-validation.md` |
-| Weekly report template | `templates/weekly-report.md` |
-| Release notes | `release-notes/v0.2.0.md` |
 
 ## Positioning
 

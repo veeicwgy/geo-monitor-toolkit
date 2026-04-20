@@ -20,7 +20,6 @@ MANUAL_RESPONSES="${MANUAL_RESPONSES:-data/manual.multi.sample.json}"
   --model-config "$MODEL_CONFIG" \
   --out-dir "$OUT_DIR" \
   --manual-responses "$MANUAL_RESPONSES"
-"$PYTHON_BIN" scripts/score_run.py --input data/runs/sample-run/annotations.jsonl --output-dir data/runs/sample-run
 "$PYTHON_BIN" scripts/generate_weekly_report.py --summary data/runs/sample-run/summary.json --output data/runs/sample-run/weekly_report.md
 "$PYTHON_BIN" scripts/build_leaderboard.py --runs-root data/runs --output-dir data/leaderboards --image-output assets/leaderboard-sample.png
 "$PYTHON_BIN" scripts/build_repair_trend.py
@@ -33,9 +32,11 @@ New run:
   $OUT_DIR/score_draft.jsonl
   $OUT_DIR/run_manifest.json
 
-Report snapshot:
-  data/runs/sample-run/summary.json
+Sample report snapshot:
   data/runs/sample-run/weekly_report.md
   assets/leaderboard-sample.png
   assets/repair-trend-sample.png
+
+If you are new here, open:
+  docs/for-beginners.md
 EOF

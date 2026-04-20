@@ -16,5 +16,7 @@ Install complete.
 
 Next:
   source "$VENV_DIR/bin/activate"
+  make doctor
   ./quickstart.sh
+  open docs/for-beginners.md
 EOF
