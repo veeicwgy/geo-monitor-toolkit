@@ -24,10 +24,11 @@ def validate_repair(root):
 
 
 def validate_summary(root):
-    sample = root / "data/runs/sample-run/summary.json"
-    if sample.exists():
-        schema = load_json(root / "schemas/run-results.schema.json")
-        validate(instance=load_json(sample), schema=schema)
+    schema = load_json(root / "schemas/run-results.schema.json")
+    for rel in ["data/runs/sample-run/summary.json", "data/runs/sciverse-sample-run/summary.json"]:
+        path = root / rel
+        if path.exists():
+            validate(instance=load_json(path), schema=schema)
 
 
 def main():

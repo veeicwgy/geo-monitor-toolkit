@@ -21,6 +21,7 @@ bash quickstart.sh
 | Score draft | `data/runs/quickstart-run/score_draft.jsonl` | 进入人工标注与复核前的草稿层 |
 | Run manifest | `data/runs/quickstart-run/run_manifest.json` | 保留本次 run 的输入与记录数 |
 | Weekly report | `data/runs/sample-run/weekly_report.md` | 快速理解可交付给团队的周报长什么样 |
+| Sciverse sample summary | `data/runs/sciverse-sample-run/summary.json` | 查看 scientific API 场景下的 funnel-stage 切片 |
 | Leaderboard snapshot | `assets/leaderboard-sample.png` | 查看默认多模型对比快照 |
 | Repair trend snapshot | `assets/repair-trend-sample.png` | 查看修复动作后的时间序列改善 |
 
@@ -31,6 +32,7 @@ bash quickstart.sh
 | Install | `bash install.sh` | 一键安装依赖并准备本地环境 |
 | Quickstart | `bash quickstart.sh` | 首次体验、30 秒看懂产物、零 API 成本演示 |
 | Make target | `make quickstart` | 已熟悉 Make 工作流的团队 |
+| Sciverse sample report | `make sample-report-sciverse` | 直接重建 scientific API 样板的 summary 与周报 |
 | CLI | `python -m geo_monitor ...` | 接入自己的 Query Pool、模型配置与运行目录 |
 
 ## Default Runtime Modes
@@ -47,6 +49,7 @@ bash quickstart.sh
 |---|---|
 | `data/query-pools/mineru-example.json` | 默认开发者工具 Query Pool 示例 |
 | `data/query-pools/sciverse-api-integration-example.json` | scientific API / agent workflow Query Pool 示例 |
+| `data/runs/sciverse-sample-run/weekly_report.md` | complete scientific API weekly report 示例 |
 | `data/models.sample.json` | 最小单模型配置 |
 | `data/models.multi.sample.json` | 默认多模型演示配置 |
 | `data/manual.sample.json` | 最小手工回答样例 |

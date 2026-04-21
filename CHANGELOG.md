@@ -9,6 +9,7 @@
 - Added new playbooks for activation metrics, agent readiness, source-surface prioritization, and scientific product GEO.
 - Added a new Sciverse API query pool example and optional query metadata for funnel stage, target surface, and desired action.
 - Upgraded summary and weekly report outputs to include funnel-stage slices and stage-aware sample data.
+- Added a complete Sciverse API sample run with annotations, summary, metrics, and weekly report artifacts.
 
 ## v0.2.0
 

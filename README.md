@@ -106,6 +106,8 @@ After it runs, you should see outputs like:
 - `data/runs/quickstart-run/run_manifest.json`
 - `data/runs/sample-run/summary.json`
 - `data/runs/sample-run/weekly_report.md`
+- `data/runs/sciverse-sample-run/summary.json`
+- `data/runs/sciverse-sample-run/weekly_report.md`
 - `assets/leaderboard-sample.png`
 - `assets/repair-trend-sample.png`
 
@@ -132,6 +134,8 @@ bash quickstart.sh
 - `data/runs/quickstart-run/run_manifest.json`
 - `data/runs/sample-run/summary.json`
 - `data/runs/sample-run/weekly_report.md`
+- `data/runs/sciverse-sample-run/summary.json`
+- `data/runs/sciverse-sample-run/weekly_report.md`
 - `assets/leaderboard-sample.png`
 - `assets/repair-trend-sample.png`
 
@@ -177,6 +181,7 @@ The toolkit follows a simple loop:
 |---|---|
 | `data/query-pools/mineru-example.json` | sample query pool |
 | `data/query-pools/sciverse-api-integration-example.json` | scientific API / agent workflow query pool |
+| `data/runs/sciverse-sample-run/summary.json` | complete scientific API sample summary |
 | `data/models.sample.json` | single-model config |
 | `data/models.multi.sample.json` | multi-model demo config |
 | `data/manual.sample.json` | single-model manual responses |
