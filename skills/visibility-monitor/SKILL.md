@@ -2,11 +2,39 @@
 name: visibility-monitor
 description: >
   Use when the user wants to run or design AI visibility monitoring for a developer tool, API, SDK, or open-source project. Covers Query Pool execution, evidence logging, four-metric scoring, weekly reporting, anomaly detection, and action prioritization across multiple LLMs and languages.
+allowed-tools: Read, Write, Edit, Bash
+metadata:
+  openclaw:
+    author: "veeicwgy"
+    homepage: "https://github.com/veeicwgy/ai-visibility-toolkit"
+    requires:
+      env:
+        - OPENAI_API_KEY
+        - OPENAI_BASE_URL
+      bins:
+        - python3
+        - bash
+    primaryEnv: OPENAI_API_KEY
+    env:
+      - name: OPENAI_API_KEY
+        description: "Optional provider API key for API collection mode. Not needed for quickstart replay or manual paste mode."
+        required: false
+        sensitive: true
+      - name: OPENAI_BASE_URL
+        description: "Optional OpenAI-compatible gateway URL for multi-provider monitoring."
+        required: false
+        sensitive: false
 ---
 
 # visibility-monitor
 
 Use this skill to turn repeated model checks into a consistent visibility monitoring workflow.
+
+## Safety
+
+- Use `quickstart replay` or `manual paste mode` first when the user does not need live API calls.
+- Keep provider keys in local shell environment variables. Do not ask users to paste secrets into chat.
+- Inspect `install.sh`, `quickstart.sh`, and the selected runner before executing Bash commands.
 
 ## Trigger
 
@@ -19,6 +47,11 @@ Use this skill when the user already has, or is ready to create, a Query Pool an
 
 ## Quick Start
 
+### Zero-key paths first
+
+- `bash quickstart.sh` replays sample data and does not require provider keys.
+- `python -m ai_visibility run --manual-responses ...` scores copied answers without live API calls.
+
 ### Choose the right runner
 
 | Runner | API Type | Works with | Use when |
@@ -29,14 +62,13 @@ Use this skill when the user already has, or is ready to create, a Query Pool an
 **For multi-model coverage across providers, always use `run_chat_completions.py`.**
 
 ```bash
-export OPENAI_API_KEY=<your-key>
-export OPENAI_BASE_URL=<gateway-url>
-
 python scripts/run_chat_completions.py \
     --query-pool data/query-pools/mineru-example.json \
     --model-config data/models.sample.json \
     --out-dir data/runs/my-run
 ```
+
+Before running the command above, verify that `OPENAI_API_KEY` is configured in the local shell. `OPENAI_BASE_URL` is optional and only needed for gateways or proxies.
 
 Then annotate scores and generate the report:
 

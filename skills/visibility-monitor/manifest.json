@@ -1,8 +1,8 @@
 {
   "name": "visibility-monitor",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "owner": "xiaowang",
-  "updated_at": "2026-04-21",
+  "updated_at": "2026-04-23",
   "status": "active",
   "maturity_tier": "beta",
   "lifecycle_stage": "active",

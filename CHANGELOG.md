@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## v0.2.4
+
+### Changed
+- Reduced the root ClawHub skill to a read-only workflow router so shell execution is no longer requested from the main entry point.
+- Declared optional environment variables and local binary requirements in `metadata.openclaw` for the root skill and `visibility-monitor`.
+- Reworded quickstart and API collection guidance so users keep secrets in local environment variables instead of chat prompts.
+- Aligned root and sub-skill manifest versions to `0.2.4` for the scanner-compliance republish.
+
 ## v0.2.3
 
 ### Changed

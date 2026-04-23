@@ -3,12 +3,29 @@ name: ai-visibility-toolkit
 description: >
   Use when the user wants to monitor how ChatGPT, Claude, Gemini, and other LLMs describe a developer tool, API, SDK, or open-source project. AI Visibility Toolkit is the companion skill for the ai-visibility-toolkit repo and covers query pool design, four-metric monitoring, model-specific content placement, content checks, negative-answer repair, activation analysis, and T+7 or T+14 regression validation.
 license: MIT
-allowed-tools: Read, Write, Edit, Bash
+allowed-tools: Read
 metadata:
   openclaw:
     emoji: "📈"
-    author: "Manus AI"
+    author: "veeicwgy"
     homepage: "https://github.com/veeicwgy/ai-visibility-toolkit"
+    requires:
+      env:
+        - OPENAI_API_KEY
+        - OPENAI_BASE_URL
+      bins:
+        - python3
+        - bash
+    primaryEnv: OPENAI_API_KEY
+    env:
+      - name: OPENAI_API_KEY
+        description: "Optional provider API key for API collection mode only. Quickstart replay and manual paste mode do not need it."
+        required: false
+        sensitive: true
+      - name: OPENAI_BASE_URL
+        description: "Optional OpenAI-compatible gateway URL for multi-provider API collection mode."
+        required: false
+        sensitive: false
 ---
 
 # Monitor How LLMs Describe Your Dev Tool
@@ -20,6 +37,13 @@ Use this skill as the **main visibility workflow router** for developer tools an
 **Companion repo:** [`ai-visibility-toolkit`](https://github.com/veeicwgy/ai-visibility-toolkit)
 
 Use this when you want an agent to help you monitor how LLMs describe your product, build a reusable query pool, diagnose negative or outdated answers, and plan what to fix next.
+
+## Safety First
+
+- Treat this root skill as a **read-only workflow router**.
+- Default to `quickstart replay` or `manual paste mode` when you only need examples or scoring help.
+- Do not ask users to paste API keys into chat. If API collection mode is needed, tell them to configure local environment variables themselves and then hand off execution to `visibility-monitor`.
+- Review local scripts such as `install.sh`, `quickstart.sh`, and the selected runner before executing shell commands.
 
 ## Start Here
 
@@ -67,8 +91,8 @@ When the user is new to the repository, route them in this order.
 
 | Situation | Next step |
 |---|---|
-| Needs environment check first | run `make doctor` |
-| Wants zero-cost first run | run `bash quickstart.sh` |
+| Needs environment check first | open `docs/getting-started.md` and review the environment check section |
+| Wants zero-cost first run | open `docs/for-beginners.md` and choose quickstart replay |
 | Wants a short explanation first | open `docs/for-beginners.md` |
 | Wants deeper onboarding | open `docs/getting-started.md` |
 | Wants the English repository overview | open `README.md` |
@@ -95,7 +119,7 @@ Choose the execution mode before running monitoring.
 |---|---|---|
 | Quickstart replay | user wants the fastest first run without API setup | sample model config + sample manual responses |
 | Manual paste mode | user already has copied answers from chat tools | Query Pool + manual response JSON |
-| API collection mode | user wants repeatable real monitoring | Query Pool + model config + API credentials |
+| API collection mode | user wants repeatable real monitoring | Query Pool + model config + locally configured provider env vars |
 
 ## Input Contract
 
@@ -115,7 +139,7 @@ Choose the next sub-skill according to the user's immediate need.
 | Situation | Next Skill |
 |---|---|
 | Need query design and scenario clustering | `visibility-query-matrix` |
-| Need weekly monitoring, evidence logging, and report output | `visibility-monitor` |
+| Need weekly monitoring, evidence logging, report output, or shell execution after explicit user approval | `visibility-monitor` |
 | Need pre-publish content QA | `visibility-content-check` |
 | Need to repair bad answers and define regression checks | `visibility-repair` |
 
