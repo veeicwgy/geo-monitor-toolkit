@@ -156,3 +156,7 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for details.
 ## License
 
 MIT
+
+## Download History
+
+[![Download History](https://skill-history.com/chart/veeicwgy/devtool-answer-monitor.svg)](https://skill-history.com/veeicwgy/devtool-answer-monitor)
